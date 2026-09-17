@@ -1,0 +1,436 @@
+{
+  "nodes": [
+    {
+      "id": "py:zeos.core.clock.Clock",
+      "label": "Clock",
+      "file": "src/zeos/core/clock.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.pcb.Job",
+      "label": "Job",
+      "file": "src/zeos/core/pcb.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.scheduler.Scheduler",
+      "label": "Scheduler",
+      "file": "src/zeos/core/scheduler.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.pipes.Pipe",
+      "label": "Pipe",
+      "file": "src/zeos/core/pipes.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.pipes.PipeTable",
+      "label": "PipeTable",
+      "file": "src/zeos/core/pipes.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.vectors.VectorTable",
+      "label": "VectorTable",
+      "file": "src/zeos/core/vectors.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.segments.SegmentTable",
+      "label": "SegmentTable",
+      "file": "src/zeos/core/segments.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.capabilities.CapabilityTable",
+      "label": "CapabilityTable",
+      "file": "src/zeos/core/capabilities.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.store.SpanStore",
+      "label": "SpanStore",
+      "file": "src/zeos/core/store.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.residency.ThrashMonitor",
+      "label": "ThrashMonitor",
+      "file": "src/zeos/core/residency.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.pager.Pager",
+      "label": "Pager",
+      "file": "src/zeos/core/pager.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.kernel.Kernel",
+      "label": "Kernel",
+      "file": "src/zeos/core/kernel.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.allocator.GreedyAllocator",
+      "label": "GreedyAllocator",
+      "file": "src/zeos/core/allocator.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.allocator.LeaseBook",
+      "label": "LeaseBook",
+      "file": "src/zeos/core/allocator.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.topology.Topology",
+      "label": "Topology",
+      "file": "src/zeos/core/topology.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.resources.ResourceTable",
+      "label": "ResourceTable",
+      "file": "src/zeos/core/resources.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.principals.PrincipalTable",
+      "label": "PrincipalTable",
+      "file": "src/zeos/core/principals.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.core.gates.GateTable",
+      "label": "GateTable",
+      "file": "src/zeos/core/gates.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.base.MachineBackend",
+      "label": "MachineBackend",
+      "file": "src/zeos/machine/base.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.base.TracesRaw",
+      "label": "TracesRaw",
+      "file": "src/zeos/machine/base.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.scripted.ScriptedMachine",
+      "label": "ScriptedMachine",
+      "file": "src/zeos/machine/scripted.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.abi.SyscallABI",
+      "label": "SyscallABI",
+      "file": "src/zeos/machine/abi.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.seat.CommandSeat",
+      "label": "CommandSeat",
+      "file": "src/zeos/machine/seat.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.seat.SyscallSeat",
+      "label": "SyscallSeat",
+      "file": "src/zeos/machine/seat.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.seat.SyscallParser",
+      "label": "SyscallParser",
+      "file": "src/zeos/machine/seat.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.seat.CommandSource",
+      "label": "CommandSource",
+      "file": "src/zeos/machine/seat.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.machine.seat.TapeSource",
+      "label": "TapeSource",
+      "file": "src/zeos/machine/seat.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.descriptor.schema.Descriptor",
+      "label": "Descriptor",
+      "file": "src/zeos/descriptor/schema.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.descriptor.loader",
+      "label": "descriptor.loader",
+      "file": "src/zeos/descriptor/loader.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.descriptor.lint",
+      "label": "descriptor.lint",
+      "file": "src/zeos/descriptor/lint.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.nli.compiler.Phrasebook",
+      "label": "Phrasebook",
+      "file": "src/zeos/nli/compiler.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.nli.dispatcher.DispatchLog",
+      "label": "DispatchLog",
+      "file": "src/zeos/nli/dispatcher.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.journal.writer.Journal",
+      "label": "Journal",
+      "file": "src/zeos/journal/writer.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.transport.base.PipeTransport",
+      "label": "PipeTransport",
+      "file": "src/zeos/transport/base.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.transport.local.LocalTransport",
+      "label": "LocalTransport",
+      "file": "src/zeos/transport/local.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.transport.link.LinkTransport",
+      "label": "LinkTransport",
+      "file": "src/zeos/transport/link.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.world.store.WorldStore",
+      "label": "WorldStore",
+      "file": "src/zeos/world/store.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.monitor.state.Monitor",
+      "label": "Monitor",
+      "file": "src/zeos/monitor/state.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.debugger.payload",
+      "label": "debugger.payload",
+      "file": "src/zeos/debugger/payload.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.debugger.server",
+      "label": "debugger.server",
+      "file": "src/zeos/debugger/server.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.demo.problem.Problem",
+      "label": "Problem",
+      "file": "src/zeos/demo/problem.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.demo.solution.Solution",
+      "label": "Solution",
+      "file": "src/zeos/demo/solution.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.demo.criteria.Criterion",
+      "label": "Criterion",
+      "file": "src/zeos/demo/criteria.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.demo.runner",
+      "label": "demo.runner",
+      "file": "src/zeos/demo/runner.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.demo.harness",
+      "label": "demo.harness",
+      "file": "src/zeos/demo/harness.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.driver.Driver",
+      "label": "Driver",
+      "file": "src/zeos/driver.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.federated.Federation",
+      "label": "Federation",
+      "file": "src/zeos/federated.py",
+      "type": "class",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.cli",
+      "label": "cli",
+      "file": "src/zeos/cli.py",
+      "type": "module",
+      "application": "ZEOS"
+    },
+    {
+      "id": "py:zeos.trace.RawTrace",
+      "label": "RawTrace",
+      "file": "src/zeos/trace.py",
+      "type": "class",
+      "application": "ZEOS"
+    }
+  ],
+  "edges": [
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.scheduler.Scheduler", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.machine.base.MachineBackend", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.pipes.PipeTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.vectors.VectorTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.pager.Pager", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.store.SpanStore", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.gates.GateTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.principals.PrincipalTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.allocator.LeaseBook", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.allocator.GreedyAllocator", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.resources.ResourceTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.world.store.WorldStore", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.topology.Topology", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.capabilities.CapabilityTable", "label": "creates" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.segments.SegmentTable", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.residency.ThrashMonitor", "label": "uses" },
+    { "source": "py:zeos.core.kernel.Kernel", "target": "py:zeos.core.pcb.Job", "label": "creates" },
+
+    { "source": "py:zeos.core.pcb.Job", "target": "py:zeos.core.capabilities.CapabilityTable", "label": "creates" },
+    { "source": "py:zeos.core.pcb.Job", "target": "py:zeos.core.segments.SegmentTable", "label": "creates" },
+    { "source": "py:zeos.core.pcb.Job", "target": "py:zeos.core.residency.ThrashMonitor", "label": "creates" },
+
+    { "source": "py:zeos.core.scheduler.Scheduler", "target": "py:zeos.core.pcb.Job", "label": "uses" },
+    { "source": "py:zeos.core.pipes.PipeTable", "target": "py:zeos.core.pipes.Pipe", "label": "creates" },
+    { "source": "py:zeos.core.pager.Pager", "target": "py:zeos.core.store.SpanStore", "label": "uses" },
+
+    { "source": "py:zeos.machine.scripted.ScriptedMachine", "target": "py:zeos.machine.base.MachineBackend", "label": "implements" },
+    { "source": "py:zeos.machine.scripted.ScriptedMachine", "target": "py:zeos.machine.base.TracesRaw", "label": "implements" },
+    { "source": "py:zeos.machine.seat.CommandSeat", "target": "py:zeos.machine.base.MachineBackend", "label": "implements" },
+    { "source": "py:zeos.machine.seat.CommandSeat", "target": "py:zeos.machine.scripted.ScriptedMachine", "label": "uses" },
+    { "source": "py:zeos.machine.seat.CommandSeat", "target": "py:zeos.machine.seat.SyscallSeat", "label": "uses" },
+    { "source": "py:zeos.machine.seat.CommandSeat", "target": "py:zeos.machine.seat.SyscallParser", "label": "creates" },
+    { "source": "py:zeos.machine.seat.CommandSeat", "target": "py:zeos.machine.seat.CommandSource", "label": "uses" },
+    { "source": "py:zeos.machine.seat.SyscallSeat", "target": "py:zeos.machine.seat.SyscallParser", "label": "uses" },
+    { "source": "py:zeos.machine.seat.TapeSource", "target": "py:zeos.machine.seat.CommandSource", "label": "implements" },
+
+    { "source": "py:zeos.descriptor.loader", "target": "py:zeos.descriptor.schema.Descriptor", "label": "creates" },
+    { "source": "py:zeos.descriptor.loader", "target": "py:zeos.core.gates.GateTable", "label": "creates" },
+    { "source": "py:zeos.descriptor.loader", "target": "py:zeos.core.principals.PrincipalTable", "label": "creates" },
+
+    { "source": "py:zeos.descriptor.lint", "target": "py:zeos.descriptor.schema.Descriptor", "label": "uses" },
+    { "source": "py:zeos.descriptor.lint", "target": "py:zeos.machine.abi.SyscallABI", "label": "uses" },
+    { "source": "py:zeos.descriptor.lint", "target": "py:zeos.core.principals.PrincipalTable", "label": "uses" },
+    { "source": "py:zeos.descriptor.lint", "target": "py:zeos.core.gates.GateTable", "label": "uses" },
+    { "source": "py:zeos.descriptor.lint", "target": "py:zeos.nli.compiler.Phrasebook", "label": "uses" },
+
+    { "source": "py:zeos.transport.local.LocalTransport", "target": "py:zeos.transport.base.PipeTransport", "label": "implements" },
+    { "source": "py:zeos.transport.local.LocalTransport", "target": "py:zeos.core.pipes.PipeTable", "label": "uses" },
+    { "source": "py:zeos.transport.local.LocalTransport", "target": "py:zeos.core.pipes.Pipe", "label": "uses" },
+    { "source": "py:zeos.transport.link.LinkTransport", "target": "py:zeos.transport.base.PipeTransport", "label": "implements" },
+
+    { "source": "py:zeos.federated.Federation", "target": "py:zeos.core.kernel.Kernel", "label": "uses" },
+    { "source": "py:zeos.federated.Federation", "target": "py:zeos.transport.link.LinkTransport", "label": "uses" },
+    { "source": "py:zeos.federated.Federation", "target": "py:zeos.core.topology.Topology", "label": "uses" },
+
+    { "source": "py:zeos.driver.Driver", "target": "py:zeos.core.kernel.Kernel", "label": "uses" },
+    { "source": "py:zeos.driver.Driver", "target": "py:zeos.journal.writer.Journal", "label": "publishes to" },
+    { "source": "py:zeos.driver.Driver", "target": "py:zeos.trace.RawTrace", "label": "uses" },
+    { "source": "py:zeos.driver.Driver", "target": "py:zeos.transport.base.PipeTransport", "label": "uses" },
+
+    { "source": "py:zeos.trace.RawTrace", "target": "py:zeos.machine.base.TracesRaw", "label": "uses" },
+
+    { "source": "py:zeos.demo.runner", "target": "py:zeos.core.kernel.Kernel", "label": "creates" },
+    { "source": "py:zeos.demo.runner", "target": "py:zeos.driver.Driver", "label": "creates" },
+    { "source": "py:zeos.demo.runner", "target": "py:zeos.demo.problem.Problem", "label": "uses" },
+    { "source": "py:zeos.demo.runner", "target": "py:zeos.demo.solution.Solution", "label": "uses" },
+    { "source": "py:zeos.demo.runner", "target": "py:zeos.demo.criteria.Criterion", "label": "uses" },
+
+    { "source": "py:zeos.demo.harness", "target": "py:zeos.core.kernel.Kernel", "label": "creates" },
+    { "source": "py:zeos.demo.harness", "target": "py:zeos.machine.scripted.ScriptedMachine", "label": "creates" },
+    { "source": "py:zeos.demo.harness", "target": "py:zeos.world.store.WorldStore", "label": "creates" },
+
+    { "source": "py:zeos.demo.solution.Solution", "target": "py:zeos.descriptor.loader", "label": "uses" },
+
+    { "source": "py:zeos.debugger.payload", "target": "py:zeos.core.principals.PrincipalTable", "label": "uses" },
+    { "source": "py:zeos.debugger.payload", "target": "py:zeos.core.gates.GateTable", "label": "uses" },
+    { "source": "py:zeos.debugger.payload", "target": "py:zeos.descriptor.lint", "label": "uses" },
+    { "source": "py:zeos.debugger.payload", "target": "py:zeos.monitor.state.Monitor", "label": "uses" },
+
+    { "source": "py:zeos.cli", "target": "py:zeos.driver.Driver", "label": "creates" },
+    { "source": "py:zeos.cli", "target": "py:zeos.journal.writer.Journal", "label": "creates" },
+    { "source": "py:zeos.cli", "target": "py:zeos.debugger.server", "label": "uses" },
+    { "source": "py:zeos.cli", "target": "py:zeos.debugger.payload", "label": "uses" },
+    { "source": "py:zeos.cli", "target": "py:zeos.descriptor.lint", "label": "uses" },
+    { "source": "py:zeos.cli", "target": "py:zeos.descriptor.loader", "label": "uses" },
+    { "source": "py:zeos.cli", "target": "py:zeos.demo.runner", "label": "uses" },
+    { "source": "py:zeos.monitor.state.Monitor", "target": "py:zeos.core.clock.Clock", "label": "creates" }
+  ]
+}

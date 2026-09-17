@@ -28,7 +28,11 @@ __all__ = ["LocalTransport"]
 
 
 class LocalTransport:
-    """Carries every pipe, in-process."""
+    """Carries every pipe, in-process.
+
+    Architecture:
+        Calls: PipeTable.ensure, Pipe.write
+    """
 
     def __init__(self, pipes: PipeTable) -> None:
         self._pipes = pipes

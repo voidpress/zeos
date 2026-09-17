@@ -237,6 +237,8 @@ class CapabilityTable:
     Conflating them inverts the authority check: the *more* authority you strip from
     a job, the more it can do, and a job stripped to zero becomes omnipotent. Which is
     exactly what happened the first time narrowing was wired up.
+
+    Architecture:
     """
 
     def __init__(self, capabilities: Iterable[Capability] = (), *, closed: bool = False) -> None:

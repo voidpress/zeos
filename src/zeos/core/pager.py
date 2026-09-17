@@ -98,7 +98,11 @@ class PagerResult:
 
 
 class Pager:
-    """Resolves faults against the store. One per kernel in M0."""
+    """Resolves faults against the store. One per kernel in M0.
+
+    Architecture:
+        Calls: SpanStore.get
+    """
 
     def __init__(self, store: SpanStore) -> None:
         self.store = store

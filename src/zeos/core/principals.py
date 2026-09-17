@@ -200,6 +200,8 @@ class PrincipalTable:
     and what they may do is site configuration -- ``system/principals.yaml`` -- for the
     same reason the allocator is a policy module: NLI claims no contribution in
     identity infrastructure (OQ-N4), only in what the kernel does with it.
+
+    Architecture:
     """
 
     principals: dict[PrincipalId, PrincipalEnvelope] = field(

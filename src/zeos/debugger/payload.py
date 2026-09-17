@@ -38,6 +38,9 @@ encoding is mechanical -- changed keys, and changed rows of the keyed lists -- a
 ``apply_delta`` is its documented inverse, tested to reproduce every frame exactly.
 That test is what makes the page's merge safe: the browser performs the same
 shallow merge, but the proof that the merge is lossless is in Python.
+
+Architecture:
+    Calls: PrincipalTable, GateTable, Monitor.snapshot
 """
 
 from __future__ import annotations

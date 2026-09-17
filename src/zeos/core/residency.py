@@ -285,6 +285,8 @@ class ThrashMonitor:
     something evicted an hour ago is using its memory hierarchy correctly, while one
     that faults in something evicted four blocks ago is paying SPLICE costs for
     nothing.
+
+    Architecture:
     """
 
     policy: ContextPolicy

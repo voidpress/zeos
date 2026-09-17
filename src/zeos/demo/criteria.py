@@ -85,6 +85,12 @@ class EvalContext:
 
 @dataclass(frozen=True, slots=True)
 class Criterion:
+    """One journal-evaluated success criterion; dispatches by kind to a handler
+    against an EvalContext and returns a Verdict.
+
+    Architecture:
+    """
+
     id: str
     kind: str
     because: str = ""

@@ -240,14 +240,21 @@ class RawWindow:
 @runtime_checkable
 class TracesRaw(Protocol):
     """A machine that can account for a window beneath the kernel's words. Optional and
-    outside ``MachineBackend``: nothing below word offsets is a kernel fact."""
+    outside ``MachineBackend``: nothing below word offsets is a kernel fact.
+
+    Architecture:
+    """
 
     def raw(self, job: JobId) -> RawWindow: ...
 
 
 @runtime_checkable
 class MachineBackend(Protocol):
-    """What the kernel requires of any execution substrate."""
+    """What the kernel requires of any execution substrate -- the backend swap point;
+    everything above it is written against this interface and nothing else.
+
+    Architecture:
+    """
 
     @property
     def block_size(self) -> int:

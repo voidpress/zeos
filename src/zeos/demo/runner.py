@@ -19,6 +19,9 @@ The three steps are deliberately separate:
 This is the reusable interface. Adding a problem means writing YAML and a scenario;
 adding a solution means writing descriptors; neither requires touching this module,
 and the same solution can be scored against a harder scenario without modification.
+
+Architecture:
+    Calls: Kernel, Driver.run, Criterion.evaluate
 """
 
 from __future__ import annotations

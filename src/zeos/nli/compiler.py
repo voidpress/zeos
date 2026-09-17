@@ -292,6 +292,8 @@ class Phrasebook:
     hear about at load: at runtime it would resolve deterministically (by descriptor
     name) and therefore silently, and "silently, deterministically wrong" is the
     hardest kind of wrong to notice.
+
+    Architecture:
     """
 
     phrasings: tuple[Phrasing, ...] = ()

@@ -165,6 +165,8 @@ class GreedyAllocator:
     preemption* -- whether revocable allocation changes the classical MRTA
     trade-offs -- and answering that needs a baseline to beat, not a clever default
     that muddies the comparison.
+
+    Architecture:
     """
 
     name = "greedy"
@@ -200,6 +202,8 @@ class LeaseBook:
     Holds no locking of its own -- the leases *are* resources in R0's table, so
     blocking and inheritance happen there. This is the index that makes revocation
     and gang assembly answerable.
+
+    Architecture:
     """
 
     profiles: dict[str, PlatformProfile] = field(default_factory=dict[str, PlatformProfile])

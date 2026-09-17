@@ -152,7 +152,10 @@ class Resource:
 
 
 class ResourceTable:
-    """Every resource in one kernel, plus the wait-for graph over them."""
+    """Every resource in one kernel, plus the wait-for graph over them.
+
+    Architecture:
+    """
 
     def __init__(self, specs: Iterable[ResourceSpec] = ()) -> None:
         self._resources: dict[ResourceName, Resource] = {}

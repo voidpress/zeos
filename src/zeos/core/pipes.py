@@ -90,7 +90,10 @@ class Write:
 
 @dataclass
 class Pipe:
-    """Runtime state of one pipe."""
+    """Runtime state of one pipe.
+
+    Architecture:
+    """
 
     spec: PipeSpec
     buffer: deque[Token] = field(default_factory=deque[Token])
@@ -213,7 +216,10 @@ class Pipe:
 
 
 class PipeTable:
-    """All pipes in one kernel, by name."""
+    """All pipes in one kernel, by name.
+
+    Architecture:
+    """
 
     def __init__(self, specs: Iterable[PipeSpec] = ()) -> None:
         self._pipes: dict[PipeName, Pipe] = {}

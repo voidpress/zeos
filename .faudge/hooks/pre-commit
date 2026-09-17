@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+# Pre-commit hook installed by Faudge.
+#
+# Runs verify_architecture.py against .faudge/software_architecture.json
+# whenever a commit modifies that file, so invalid architecture JSON cannot
+# land. Installed into .faudge/hooks/pre-commit; activated per clone via
+# `git config core.hooksPath .faudge/hooks`.
+
+set -e
+
+repo_root=$(git rev-parse --show-toplevel)
+arch_file="$repo_root/.faudge/software_architecture.json"
+verify_script="$repo_root/.faudge/hooks/verify_architecture.py"
+
+if ! git diff --cached --name-only | grep -qx '\.faudge/software_architecture\.json'; then
+    exit 0
+fi
+
+if [ ! -f "$arch_file" ]; then
+    exit 0
+fi
+
+if [ ! -f "$verify_script" ]; then
+    echo "pre-commit: verify_architecture.py not found at $verify_script" >&2
+    echo "pre-commit: install it alongside this hook before committing the architecture JSON." >&2
+    exit 1
+fi
+
+if ! python3 "$verify_script" "$arch_file"; then
+    echo >&2
+    echo "pre-commit: .faudge/software_architecture.json failed validation." >&2
+    echo "pre-commit: fix the issues above (or unstage the JSON) and try again." >&2
+    exit 1
+fi

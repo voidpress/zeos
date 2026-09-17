@@ -356,6 +356,9 @@ class Monitor:
 
     Mutable internally, immutable outward: ``snapshot`` returns a frozen ``SystemView``
     so a scrubber can keep every frame without them aliasing each other.
+
+    Architecture:
+        Calls: Clock
     """
 
     def __init__(self) -> None:

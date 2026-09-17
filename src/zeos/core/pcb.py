@@ -48,7 +48,10 @@ __all__ = ["Job"]
 
 @dataclass
 class Job:
-    """One transformer-mediated task in flight."""
+    """One transformer-mediated task in flight.
+
+    Architecture:
+    """
 
     job_id: JobId
     descriptor: Descriptor

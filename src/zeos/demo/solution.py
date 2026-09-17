@@ -39,6 +39,12 @@ _ENVIRONMENT_FILES = ("pipes.yaml", "world-state.yaml")
 
 @dataclass(frozen=True, slots=True)
 class Solution:
+    """A submitted descriptor-tree-only case bundle, loaded and scored against a Problem.
+
+    Architecture:
+        Calls: descriptor.loader.load_case
+    """
+
     name: str
     descriptors: Mapping[DescriptorName, Descriptor]
     scripts: Mapping[str, Script]

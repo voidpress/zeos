@@ -282,6 +282,20 @@ NOT_WRITABLE = "the pipe you named is not one this job may write"
 
 
 class Kernel:
+    """The state machine driving one deterministic step function over a scheduler,
+    pipes, vectors, and a machine backend, composing every other core subsystem.
+
+    Architecture:
+        Calls: Scheduler.dispatch, Scheduler.preempt, Scheduler.block, Scheduler.wake,
+            MachineBackend.decode, MachineBackend.inject, MachineBackend.trunc,
+            MachineBackend.fork, MachineBackend.splice, PipeTable.ensure,
+            VectorTable.on_write, Pager.resolve_fault, Pager.resolve_need,
+            SpanStore.put, GateTable.for_pipe, PrincipalTable.narrow,
+            PrincipalTable.elevate, LeaseBook.grant, LeaseBook.revoke,
+            GreedyAllocator.choose, ResourceTable.declare, ResourceTable.release_all,
+            WorldStore.get, WorldStore.set, Topology.peer_of
+    """
+
     def __init__(
         self,
         *,

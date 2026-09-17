@@ -51,6 +51,8 @@ class SyscallABI:
     descriptor's ``pipes:`` bindings. ``max_text`` bounds a payload, or is None for no
     bound; short on purpose in the default, since a roomy payload lets one command carry
     a whole plan.
+
+    Architecture:
     """
 
     verbs: tuple[Verb, ...]

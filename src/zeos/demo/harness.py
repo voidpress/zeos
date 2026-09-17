@@ -20,6 +20,9 @@ test suite.
 Contract-tier fuzzing is the same harness with adversarial inputs: feed a descriptor
 an injection corpus on a ring-3 pipe and assert the MP fault behaviour, rather than
 reading the transcript and forming an impression.
+
+Architecture:
+    Calls: Kernel.spawn, Kernel.run_until_quiescent, ScriptedMachine, WorldStore.set
 """
 
 from __future__ import annotations

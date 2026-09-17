@@ -16,6 +16,9 @@ than being part of ``Descriptor``. That placement is deliberate: a script is M0
 scaffolding standing in for the model's behaviour, not part of the descriptor
 format. When a real model arrives the key simply goes unused, and nothing in the
 descriptor schema has to change.
+
+Architecture:
+    Calls: Descriptor, GateTable, PrincipalTable
 """
 
 from __future__ import annotations

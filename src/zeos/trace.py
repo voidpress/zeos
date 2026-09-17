@@ -49,7 +49,11 @@ def _word(word: Any) -> dict[str, Any]:
 
 
 class RawTrace:
-    """Collects a machine's account after each tick, streaming rows to a file."""
+    """Collects a machine's account after each tick, streaming rows to a file.
+
+    Architecture:
+        Calls: TracesRaw.raw
+    """
 
     def __init__(self, path: Path | None = None) -> None:
         self.path = path

@@ -63,6 +63,10 @@ class Federation:
     here, delivery order is sorted, and loss is an explicit schedule rather than a
     random draw. Same inputs, same journals, byte for byte -- which is what makes a
     partition bug a regression test instead of an anecdote.
+
+    Architecture:
+        Calls: Kernel.advance_to, Kernel.tick, Kernel.deliver, LinkTransport.advance,
+            LinkTransport.poll, Topology.peer_of
     """
 
     topology: Topology
