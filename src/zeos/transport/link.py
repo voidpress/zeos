@@ -119,6 +119,8 @@ class LinkTransport:
     radio link that can hear but not speak is a real failure mode and a symmetric
     model cannot represent the platform continuing to report while ignoring
     instructions.
+
+    Architecture:
     """
 
     spec: LinkSpec

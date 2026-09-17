@@ -36,7 +36,10 @@ __all__ = ["Scheduler"]
 
 
 class Scheduler:
-    """Ready set, running job, and the suspension stack."""
+    """Ready set, running job, and the suspension stack.
+
+    Architecture:
+    """
 
     def __init__(self) -> None:
         self._jobs: dict[JobId, Job] = {}

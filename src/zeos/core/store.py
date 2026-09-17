@@ -59,6 +59,8 @@ class SpanStore:
     Reference counts exist so that dedup is observable: two jobs archiving the same
     reference document produce one entry with a count of two, which is the number a
     capacity planner actually wants.
+
+    Architecture:
     """
 
     def __init__(self) -> None:

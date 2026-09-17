@@ -69,7 +69,10 @@ def words_of(command: str, *, terminator: str, lead: bool) -> list[str]:
 
 @dataclass
 class SyscallParser:
-    """Collects decoded pieces and yields a request on the piece that closes a command."""
+    """Collects decoded pieces and yields a request on the piece that closes a command.
+
+    Architecture:
+    """
 
     abi: SyscallABI = DEFAULT
     buffer: str = ""
@@ -91,7 +94,11 @@ class SyscallParser:
 
 
 class SyscallSeat:
-    """The ABI half of a machine backend, leaving the model half to the subclass."""
+    """The ABI half of a machine backend, leaving the model half to the subclass.
+
+    Architecture:
+        Calls: SyscallParser.feed
+    """
 
     def __init__(
         self,
@@ -151,7 +158,10 @@ class Turn:
 
 
 class CommandSource(Protocol):
-    """Where a seat's next command comes from. One method, and no kernel to speak of."""
+    """Where a seat's next command comes from. One method, and no kernel to speak of.
+
+    Architecture:
+    """
 
     def next_command(self, turn: Turn) -> str:
         """One complete command, such as ``say 41`` or ``write tools 50``."""
@@ -165,6 +175,8 @@ class TapeSource:
     each is one whole command, and the seat spends it one word per decode. Nothing here
     reads the descriptor body or the status region, so a tape is only ever right for the
     event schedule it was written against.
+
+    Architecture:
     """
 
     def __init__(self, scripts: Mapping[str, Script]) -> None:
@@ -212,6 +224,9 @@ class CommandSeat(ScriptedMachine, SyscallSeat):
     next command is chosen from. What it does not decide is what the job says next --
     that comes from a ``CommandSource``, so a tape, an API and a local process are three
     collaborators rather than three subclasses, and the same case runs under any of them.
+
+    Architecture:
+        Calls: SyscallSeat.consume, CommandSource.next_command
     """
 
     def __init__(

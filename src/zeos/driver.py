@@ -127,7 +127,12 @@ def build_kernel(
 
 
 class Driver:
-    """Runs a kernel against a schedule of external events."""
+    """Runs a kernel against a schedule of external events.
+
+    Architecture:
+        Calls: Kernel.tick, Kernel.advance_time, Kernel.spawn, Kernel.deliver,
+            Journal.extend, RawTrace.sample, PipeTransport.poll
+    """
 
     #: Simulated wall-clock cost of one token boundary. The specs put a forward
     #: pass at "~ms" (core §5.2), and interrupt latency is budgeted against that,

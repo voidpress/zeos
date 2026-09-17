@@ -18,6 +18,11 @@ Four verbs, matching the four things you do with a descriptor tree:
 parsed structures: a comparison tolerant of key reordering would miss exactly the
 bug class the gate exists for, which is nondeterministic iteration order leaking
 into kernel decisions.
+
+Architecture:
+    Calls: descriptor.loader.load_case, descriptor.lint.lint, Driver.run, Journal,
+        debugger.server.serve, debugger.server.export,
+        debugger.payload.build_payload, demo.runner.run_demo
 """
 
 from __future__ import annotations

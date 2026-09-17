@@ -51,7 +51,10 @@ class InboundFrame(Protocol):
 
 @runtime_checkable
 class PipeTransport(Protocol):
-    """How a named pipe reaches its far end."""
+    """How a named pipe reaches its far end -- the distribution seam.
+
+    Architecture:
+    """
 
     @property
     def name(self) -> str:

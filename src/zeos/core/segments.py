@@ -172,6 +172,8 @@ class SegmentTable:
     Owns segment identity and ranges. It does *not* own the tokens -- the machine
     does -- and it does not decide policy; it records structure and answers questions
     about it.
+
+    Architecture:
     """
 
     def __init__(self, block_size: int) -> None:

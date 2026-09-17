@@ -19,6 +19,8 @@ service to be read is not a thing anyone can attach to an issue.
 Unlike the general-purpose viewer this pattern comes from, this server publishes
 exactly one case and one journal, both fixed when it was constructed. There is no
 user-controlled path, so there is no path to traverse out of.
+
+Architecture:
 """
 
 from __future__ import annotations

@@ -23,6 +23,9 @@ Two severities, and the distinction is load-bearing:
 All three layers' rules are present: core (masking budgets, unknown references),
 MP (confused-deputy-by-construction, endorsement schema width), and VM (pinned-only
 with on-demand maps, stub budgets, watermark sanity, working-set fit).
+
+Architecture:
+    Calls: Descriptor, SyscallABI.verb, PrincipalTable, GateTable, Phrasebook.build
 """
 
 from __future__ import annotations

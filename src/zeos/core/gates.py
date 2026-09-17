@@ -145,6 +145,8 @@ class GateTable:
     rule -- do two gates both veto, or does the first allow short-circuit? -- and
     picking one silently is worse than requiring the site to compose its checks
     inside a single reviewable file, which is where the design wants the judgment anyway.
+
+    Architecture:
     """
 
     gates: dict[PipeName, GateSpec] = field(default_factory=dict[PipeName, GateSpec])

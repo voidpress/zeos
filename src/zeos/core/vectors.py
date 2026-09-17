@@ -85,7 +85,10 @@ class _VectorState:
 
 
 class VectorTable:
-    """Bindings plus the per-vector state that storm control needs."""
+    """Bindings plus the per-vector state that storm control needs.
+
+    Architecture:
+    """
 
     def __init__(self, specs: Iterable[VectorSpec] = ()) -> None:
         self._specs: dict[VectorName, VectorSpec] = {}

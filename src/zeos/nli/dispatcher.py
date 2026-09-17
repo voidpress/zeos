@@ -226,6 +226,8 @@ class DispatchLog:
     "Every attempt, allowed or blocked, is journaled with provenance: who spoke,
     what was compiled, which gate answered." This is the in-memory index over that;
     the journal remains the record.
+
+    Architecture:
     """
 
     entries: list[tuple[PrincipalId, str, str]] = field(

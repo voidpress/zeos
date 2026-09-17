@@ -39,6 +39,8 @@ class Journal:
 
     Streaming matters for the thrash and starvation cases: a run that is killed
     mid-flight should still leave an analysable journal behind.
+
+    Architecture:
     """
 
     def __init__(self, path: Path | None = None) -> None:

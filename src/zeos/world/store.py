@@ -136,6 +136,8 @@ class WorldStore:
     History is kept rather than only current values because a resumed job needs to
     know *what changed while it was gone*, and the before-value at suspension time
     is not recoverable from the current state alone.
+
+    Architecture:
     """
 
     # Parameterised factories rather than bare ``dict``/``list``: the bare forms

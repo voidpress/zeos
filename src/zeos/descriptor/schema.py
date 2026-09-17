@@ -346,7 +346,10 @@ class MapSpec:
 
 @dataclass(frozen=True, slots=True)
 class Descriptor:
-    """One behaviour. Immutable "code"; the transcript is the state."""
+    """One behaviour. Immutable "code"; the transcript is the state.
+
+    Architecture:
+    """
 
     name: DescriptorName
     priority: Priority

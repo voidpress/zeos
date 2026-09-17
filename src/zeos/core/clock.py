@@ -40,7 +40,10 @@ NS_PER_SECOND: Final = 1_000_000_000
 
 @dataclass(frozen=True, slots=True, order=True)
 class Clock:
-    """An instant in the kernel's two time bases. Immutable; advance returns a new one."""
+    """An instant in the kernel's two time bases. Immutable; advance returns a new one.
+
+    Architecture:
+    """
 
     token_clock: int = 0
     virtual_ns: int = 0

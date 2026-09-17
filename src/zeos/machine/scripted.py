@@ -188,7 +188,10 @@ class _Context:
 
 
 class ScriptedMachine:
-    """A ``MachineBackend`` driven by scripts instead of weights."""
+    """A ``MachineBackend`` driven by scripts instead of weights.
+
+    Architecture:
+    """
 
     def __init__(
         self,

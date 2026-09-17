@@ -159,7 +159,10 @@ class Contract:
 
 @dataclass(frozen=True, slots=True)
 class Problem:
-    """A world plus a scenario plus success criteria. Contains no behaviours."""
+    """A world plus a scenario plus success criteria. Contains no behaviours.
+
+    Architecture:
+    """
 
     name: str
     title: str

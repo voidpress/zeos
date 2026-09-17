@@ -147,6 +147,8 @@ class Topology:
     placement arithmetic over two declared numbers; discovering either at runtime
     would put a scheduling decision behind a measurement that can move, and the
     whole point is that the placement of a safety handler is a load-time property.
+
+    Architecture:
     """
 
     nodes: dict[str, NodeSpec] = field(default_factory=dict[str, NodeSpec])
