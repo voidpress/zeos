@@ -21,6 +21,10 @@ exactly one case and one journal, both fixed when it was constructed. There is n
 user-controlled path, so there is no path to traverse out of.
 
 Architecture:
+    Endpoints:
+        GET  /             page         - The debugger page, with its data fetched separately
+        GET  /index.html   page         - The same page under its file name
+        GET  /api/payload  payload_fn   - The case structure and journal frames as JSON
 """
 
 from __future__ import annotations

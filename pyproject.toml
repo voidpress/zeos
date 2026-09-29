@@ -102,7 +102,9 @@ target-version = "py312"
 line-length = 100
 # Markdown is prose. Ruff reformats the Python inside fenced blocks, and the
 # corpus aligns those blocks by hand to set MEASURED against SYNTHETIC.
-extend-exclude = ["*.md"]
+# .faudge/hooks is vendored verbatim from the Faudge architecture tooling and
+# replaced wholesale on each update, so it follows that project's style, not ours.
+extend-exclude = ["*.md", ".faudge"]
 
 [tool.ruff.lint]
 select = [

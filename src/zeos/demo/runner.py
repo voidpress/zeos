@@ -21,7 +21,8 @@ adding a solution means writing descriptors; neither requires touching this modu
 and the same solution can be scored against a harder scenario without modification.
 
 Architecture:
-    Calls: Kernel, Driver.run, Criterion.evaluate
+    Calls: descriptor.lint.lint, WorldStore.set, Driver.boot, Driver.run,
+        demo.criteria.evaluate_all, Problem.load, Solution.load
 """
 
 from __future__ import annotations

@@ -22,7 +22,7 @@ Contains `nodes` (components) and `edges` (relationships). Nodes store only topo
 
 ### Layer 2: Source file docblocks — Detail
 
-Each class or module referenced by a node carries an `Architecture:` block in its docstring. `ArchitectureService` reads and parses these at request time to populate `description` and `methods_called` in the API response.
+Each class or module referenced by a node carries an `Architecture:` block in its docstring. `ArchitectureGenerator` reads and parses these at request time to populate `description`, `methods_called` and `endpoints` in the API response.
 
 ---
 
@@ -50,6 +50,7 @@ Each node contains only topology fields:
   "label": "GitClient",
   "file": "src/faudge/web/services/git_client.py",
   "type": "class",
+  "layer": 5,
   "application": "Web Backend"
 }
 ```
@@ -62,6 +63,7 @@ Each node contains only topology fields:
 | `label` | string | Short human-readable name — the class name or a concise module name. |
 | `file` | string | Source file path relative to the repo root (e.g. `src/faudge/web/services/git_client.py`). |
 | `type` | string | Either `"class"` or `"module"`. Use `"class"` when the node represents a single dominant class. Use `"module"` for router files (which have no class but still coordinate stateful dependencies). |
+| `layer` | integer | Architectural depth (see Layer Conventions below). |
 | `application` | string | The deployed application/process this component runs in; the diagram draws one container per application. Optional at the schema level (older files may omit it) but **expected** for this repo. See Application Conventions below — assign by runtime process, **not** by file path. |
 
 `description` and `methods_called` are **not** stored in the JSON. They are sourced from source file docblocks at request time.
@@ -70,7 +72,7 @@ Each node contains only topology fields:
 
 ## Node `id` scheme
 
-Every node `id` is prefixed with a language tag: `<lang>:<symbol>`. This lets `ArchitectureService` dispatch to the correct language parser automatically.
+Every node `id` is prefixed with a language tag: `<lang>:<symbol>`. This lets `ArchitectureGenerator` dispatch to the correct language parser automatically.
 
 | Type | Format | Example |
 |---|---|---|
@@ -115,7 +117,12 @@ class DesignPlanService:
 """FastAPI router exposing endpoints for forge task CRUD at /api/tasks.
 
 Architecture:
-    Calls: TaskService.list_tasks, TaskService.get_task, TaskService.upload_attachment
+    Calls: TaskManager.list_tasks, TaskManager.get_task, TaskManager.upload_attachment
+    Endpoints:
+        GET    /api/tasks                                        list_tasks         - List forge tasks with optional filters
+        POST   /api/tasks                                        create_task        - Create a forge task with attachments
+        GET    /api/tasks/{task_id}                              get_task           - Get a single forge task
+        DELETE /api/tasks/{task_id}/attachments/{attachment_id}  delete_attachment  - Delete an attachment
 """
 ```
 
@@ -133,6 +140,21 @@ JSDoc `/** ... */` block immediately above the class or export declaration. The 
 export class FooService { /* ... */ }
 ```
 
+An Express router module declares its routes with the mount prefix from `app.use('/api', router)` already applied:
+
+```typescript
+/**
+ * Express router for widget CRUD.
+ *
+ * Architecture:
+ *   Calls: WidgetService.list, WidgetService.update
+ *   Endpoints:
+ *     GET  /api/widgets      listWidgets   - List widgets
+ *     PUT  /api/widgets/:id  updateWidget  - Replace a widget
+ */
+const router = express.Router();
+```
+
 ### Go
 
 Contiguous `//` comment block immediately above the `type X struct` or `package` declaration — no blank line between the comment and the declaration (Go doc comment convention).
@@ -143,6 +165,20 @@ Contiguous `//` comment block immediately above the `type X struct` or `package`
 // Architecture:
 //   Calls: Queue.Dequeue, Logger.Info
 type Worker struct { /* ... */ }
+```
+
+A gin package declares its routes with the `Group()` prefix resolved:
+
+```go
+// Package api registers the job HTTP routes.
+//
+// Architecture:
+//   Calls: JobStore.List, JobStore.Get
+//   Endpoints:
+//     GET  /api/v1/jobs      ListJobs  - List jobs
+//     GET  /api/v1/jobs/:id  GetJob    - Get one job
+//     WS   /api/v1/jobs/:id/logs  StreamLogs  - Stream job logs
+package api
 ```
 
 ### C++
@@ -196,19 +232,35 @@ For C, `Calls:` entries may be bare function names (no class prefix). They are s
 |---|---|---|
 | Description (text before `Architecture:`) | **Required** | One or more sentences describing what this component does and its role in the system. Becomes the `description` field in the API response. |
 | `Calls:` | When applicable | Comma-separated list of `ClassName.method_name` pairs (or bare function names for C) for meaningful cross-component calls made by this component. Omit for pure-data-access stores, abstract base classes, and components that only call OS/subprocess APIs. |
+| `Endpoints:` | When applicable | **Required for any component that registers HTTP routes.** One entry per route, on the lines following `Endpoints:` — see the format below. |
 
 **Do NOT add these fields to the docblock:**
-- `Layer:` / `Band:` — the architecture view positions blocks itself; a layer named in a docblock is a second source of truth that nothing reads.
-- `Called by:` — caller relationships are already captured by edges in `software_architecture.json` and are derivable from the graph. Only `Calls:` (outbound) is stored here.
+- `Layer:` — layer is already stored in `software_architecture.json`; duplicating it in docblocks creates two sources of truth.
+- `Called by:` — caller relationships are already captured by edges in `software_architecture.json` and are derivable from the graph. Only `Calls:` (outbound) and `Endpoints:` (the routes this component registers) are stored here.
 
 **`Calls:` format:** each entry is `ReceiverClass.method_name`. Use the class name (not the instance variable name). Only include calls that meaningfully illustrate the component's role — omit logger calls, asyncio primitives, string/list methods, and standard library calls.
 
-### Parsing rules (for `ArchitectureService`)
+**`Endpoints:` format:** `Endpoints:` sits on its own line inside the `Architecture:` block, before or after `Calls:`. Each following line is one route:
 
-- `ArchitectureService` dispatches to the correct parser based on the `id` language tag prefix.
+```
+METHOD  PATH  [HANDLER]  [- SUMMARY]
+```
+
+- `METHOD` — one of `GET POST PUT PATCH DELETE HEAD OPTIONS ANY WS` (case-insensitive). Use `ANY` for catch-all or method-agnostic handlers (e.g. Go `http.HandleFunc`), `WS` for WebSocket upgrades.
+- `PATH` — the **full path as a client calls it**, starting with `/`. Resolve every mount prefix yourself: `APIRouter(prefix=...)`, `app.include_router(..., prefix=...)`, `app.use('/api', router)`, gin `Group()`, Spring class-level `@RequestMapping`, etc. Keep the framework's parameter syntax verbatim (`{id}`, `:id`, `<int:id>`).
+- `HANDLER` — optional function/method name (`list_tasks`, `TaskController.list`, `api::list_tasks`).
+- `SUMMARY` — optional one-line summary after a standalone `-` separator (`--` and `—` are also accepted; prefer `-`, which is ASCII-safe in C/C++).
+- Alignment is cosmetic; entries are whitespace-separated. The list ends at a blank line, another `Field:` line, or a line that is not an entry.
+
+Keep the list in sync with the code: add, remove or re-path an entry whenever you add, remove or change a route.
+
+### Parsing rules (for `ArchitectureGenerator`)
+
+- `ArchitectureGenerator` dispatches to the correct parser based on the `id` language tag prefix.
 - The text before `\nArchitecture:` in the extracted doc comment becomes the `description` field.
 - Each `Calls:` entry is parsed into a `MethodCall(object, method)` with `line=0`.
-- If no `Architecture:` block is present, `description` and `methods_called` are empty.
+- Each `Endpoints:` entry is parsed into an `Endpoint(method, path, handler, summary)`; the method is upper-cased and a missing handler or summary becomes `""`. A line that starts with a method token but has no valid path is skipped with a warning.
+- If no `Architecture:` block is present, `description`, `methods_called` and `endpoints` are empty.
 
 ---
 
@@ -228,10 +280,25 @@ To support a new language (e.g. Rust):
 
 4. **Use the new language tag** in `software_architecture.json` node ids for the new-language components.
 
-No changes to `ArchitectureService` or the registry dispatch logic are needed — the registry handles it automatically.
+No changes to `ArchitectureGenerator` or the registry dispatch logic are needed — the registry handles it automatically.
 
 ---
 
+## Layer Conventions
+
+Layers describe position in the call stack, from entry point (0) down to utilities (6):
+
+| Layer | Description | Examples |
+|---|---|---|
+| 0 | Application entry point and bootstrap | `Application` |
+| 1 | Top-level orchestration and worker entrypoints | `WorkflowOrchestrator`, `Worker` entrypoint |
+| 2 | Core agents and processors | `CodingAgent`, `ClaudeCodeRunner`, `TaskProcessor` |
+| 3 | Web app, routers, and primary services | `FastAPI app`, routers, `TaskManager`, `ArchitectureGenerator` |
+| 4 | Data access stores and secondary services | `TaskStore`, `ProjectStore`, `SystemSettingsStore`, `FaudgeTaskEmitter` |
+| 5 | Integration helpers and runners | `ClaudeRunner`, `TranscriptFormatter`, `GitClient` |
+| 6 | Utilities, models, and data structures | `ForgeTask`, `AppConfig`, `ProjectSettings`, PTY bridge, logging |
+
+---
 
 ## Application Conventions
 
@@ -285,7 +352,7 @@ Each edge is a directed relationship from one node to another:
 ```json
 {
   "source": "py:faudge.web.routers.tasks",
-  "target": "py:faudge.web.services.task_service.TaskService",
+  "target": "py:faudge.web.services.task_manager.TaskManager",
   "label": "uses"
 }
 ```
@@ -364,20 +431,21 @@ The key question is: **does this component hold state or coordinate stateful dep
 
 ### When you add or delete a class or module
 
-1. **Add/remove the node** in `software_architecture.json` with the correct `id`, `label`, `file`, `type`, and `application`.
+1. **Add/remove the node** in `software_architecture.json` with the correct `id`, `label`, `file`, `type`, and `layer`.
 2. **Add/remove edges** to reflect new or removed dependencies.
 3. **Add/remove the `Architecture:` docblock** in the source file (or remove when the class is deleted).
 
 ### When a class's purpose or dependencies change
 
-1. **Update the docblock** in the source file — change the description text or `Calls:` line.
+1. **Update the docblock** in the source file — change the description text, `Calls:` line, or `Endpoints:` list (whenever a route is added, removed, or its method/path changes).
 2. **Update edges** in `software_architecture.json` if dependencies changed.
-3. No JSON node fields need to change unless `file`, `type`, or `application` changed.
+3. No JSON node fields need to change unless `file`, `layer`, or `type` changed.
 
 ### General rules
 
 - Keep `id` values in the `<lang>:<symbol>` format — see the Node `id` scheme section above.
 - Update `file` paths if files were moved or renamed.
+- Assign the correct `layer` based on the layer conventions above — do not default everything to layer 3.
 - Edge `source` and `target` fields must use the same prefixed `id` format as nodes.
 - Edge `label` values come from the standard vocabulary above; do not invent new labels unless none fit.
 
@@ -385,49 +453,47 @@ The key question is: **does this component hold state or coordinate stateful dep
 
 ## Current Component Inventory (as of May 2026)
 
-### Orchestrator · Entry
+### Entry Point (Layer 0)
 - `py:faudge.application.Application` — bootstraps and wires all components, creates per-project CodingAgent instances, manages shutdown
 
-### Orchestrator · Orchestration
+### Orchestration (Layer 1)
 - `py:faudge.core.workflow_orchestrator.WorkflowOrchestrator` — drives the main processing loop, delegates to processors
 - Worker entrypoint module
 
-### Orchestrator · Processors and Agents
+### Processors & Agents (Layer 2)
 - `py:faudge.core.coding_agent.CodingAgent` — abstract base class defining agent interface for code execution
 - `py:faudge.core.claude_code_agent.ClaudeCodeAgent` — Docker-based CodingAgent managing container lifecycle, repo checkout, workspace preparation, execution, and result handling
-- `py:faudge.core.initial_task_processor.InitialTaskProcessor` — orchestrates initial task execution via agents
-- `py:faudge.core.review_task_processor.ReviewTaskProcessor` — orchestrates review processing via agents
+- `py:faudge.core.task_processor.TaskProcessor` — owns every task run from claim to outcome: implement runs for *At the Anvil* tasks, merge runs for *Back to the Faudge* tasks
 
-### Web Backend · Web Tier and Services
+### Web Tier (Layer 3)
 - `py:faudge.web.app` — FastAPI application factory
-- `py:faudge.web.dependencies` — FastAPI dependency factories; owns the process-wide singletons (`FaudgeTaskEmitter`, `ReviewEventEmitter`, `DesignPlanService`) and wires the `FaudgeTaskEmitter` as a listener onto each per-request `TaskService`
-- Routers: `tasks`, `reviews`, `diff`, `architecture` (also serves node positions), `design_plans`, `ideas`, `system` (usage, system settings and first-run setup), `logs`, `transcripts`, `files`, `projects` (also serves git history), `events`, `armory`, `project_skills`
-- `py:faudge.web.services.architecture_service.ArchitectureService`
+- `py:faudge.web.dependencies` — FastAPI dependency factories; owns the process-wide singletons (`FaudgeTaskEmitter`, `ReviewEventEmitter`, `DesignPlanService`) and wires the `FaudgeTaskEmitter` as a listener onto each per-request `TaskManager`
+- Routers: `tasks`, `reviews`, `diff`, `architecture` (node positions, locks and validation), `design_plans`, `ideas`, `system` (usage, system settings and first-run setup), `logs`, `transcripts`, `files`, `projects` (also serves git history), `events`, `armory`, `project_skills`
+- `py:faudge.web.services.architecture_generator.ArchitectureGenerator` — generates diagrams; node positions, locks and validation live in `ArchitectureStore`
 - `py:faudge.web.services.design_plan_service.DesignPlanService`
-- `py:faudge.web.services.task_service.TaskService` — owns a `_listeners: list[TaskListener]` and calls `on_task_changed()` on them after every mutation
+- `py:faudge.web.services.task_manager.TaskManager` — owns a `_listeners: list[TaskListener]` and calls `on_task_changed()` on them after every mutation
 - `py:faudge.web.services.project_settings_service.ProjectSettingsService`
-- `py:faudge.web.services.system_service.SystemService`
 
-### Web Backend · Data Access
+### Data Access (Layer 4)
 - `py:faudge.web.services.task_store.TaskStore`
 - `py:faudge.web.services.idea_store.IdeaStore`
 - `py:faudge.web.services.project_store.ProjectStore`
-- `py:faudge.web.services.system_settings_store.SystemSettingsStore`
+- `py:faudge.web.services.system_settings_store.SystemSettingsStore` — forge-wide settings with their defaults, and first-run state
 - `py:faudge.web.services.usage_store.UsageStore`
 - `py:faudge.web.services.design_plan_session_store.DesignPlanSessionStore`
-- `py:faudge.web.services.task_service.TaskListener` — abstract base class (observer interface) for task change notifications
+- `py:faudge.web.services.task_manager.TaskListener` — abstract base class (observer interface) for task change notifications
 - `py:faudge.web.services.faudge_task_emitter.FaudgeTaskEmitter` — concrete `TaskListener`; holds asyncio.Queue subscribers and broadcasts SSE bump events; singleton stored on `app.state`
 
-### Integrations and Runners
+### Integration Helpers (Layer 5)
 - `py:faudge.integrations.claude.runner.ClaudeSubprocessRunner` — runs Claude CLI subprocess
 - `py:mcp.forge_tasks_mcp.forge_tasks_client.ForgeTasksClient` — HTTP client bridging MCP tool calls to the web API
 
-### Web Backend · Utilities
+### Utilities & Models (Layer 6)
 - `py:faudge.web.services.pty_bridge.PtyBridge`
 - `py:mcp.forge_tasks_mcp.server` — MCP server module
 - Logging utilities
 
-### Web Backend · Utilities — Docblock Parsers
+### Docblock Parsers (Layer 6)
 - `py:faudge.web.services.docblocks.docblock_parser.DocblockParser` — abstract base class for all language parsers
 - `py:faudge.web.services.docblocks.python_docblock_parser.PythonDocblockParser`
 - `py:faudge.web.services.docblocks.typescript_docblock_parser.TypescriptDocblockParser`
@@ -442,9 +508,11 @@ The key question is: **does this component hold state or coordinate stateful dep
 
 - `id` = `<lang>:<symbol>` — language-tagged identifier (see Node `id` scheme)
 - `file` = repo-relative path starting with `src/` or `mcp/`
+- `layer` = architectural depth 0–6 per the table above
 - `application` = deployed process the node runs in — assign by runtime process, not file path (see Application Conventions)
 - `type` = `"class"` or `"module"` only
 - Descriptions live in source doc comments, not in the JSON
 - Method call data lives in `Calls:` docblock lines, not in the JSON
+- HTTP routes live in `Endpoints:` docblock lists (full client-facing paths), not in the JSON
 - Edge `source` and `target` use the same `<lang>:<symbol>` format as node ids
 - Edge `label` values come from the standard vocabulary above; do not invent new labels unless none fit

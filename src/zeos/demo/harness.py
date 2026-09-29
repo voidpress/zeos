@@ -22,7 +22,8 @@ an injection corpus on a ring-3 pipe and assert the MP fault behaviour, rather t
 reading the transcript and forming an impression.
 
 Architecture:
-    Calls: Kernel.spawn, Kernel.run_until_quiescent, ScriptedMachine, WorldStore.set
+    Calls: Kernel.start, Kernel.spawn, Kernel.deliver, Kernel.run_until_quiescent,
+        WorldStore.set
 """
 
 from __future__ import annotations

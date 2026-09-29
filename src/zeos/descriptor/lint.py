@@ -25,7 +25,8 @@ MP (confused-deputy-by-construction, endorsement schema width), and VM (pinned-o
 with on-demand maps, stub budgets, watermark sanity, working-set fit).
 
 Architecture:
-    Calls: Descriptor, SyscallABI.verb, PrincipalTable, GateTable, Phrasebook.build
+    Calls: SyscallABI.verb, PrincipalTable.has, PrincipalTable.all, core.gates.gate_problems,
+        Phrasebook.build
 """
 
 from __future__ import annotations

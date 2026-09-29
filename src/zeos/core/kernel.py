@@ -287,13 +287,13 @@ class Kernel:
 
     Architecture:
         Calls: Scheduler.dispatch, Scheduler.preempt, Scheduler.block, Scheduler.wake,
-            MachineBackend.decode, MachineBackend.inject, MachineBackend.trunc,
-            MachineBackend.fork, MachineBackend.splice, PipeTable.ensure,
-            VectorTable.on_write, Pager.resolve_fault, Pager.resolve_need,
-            SpanStore.put, GateTable.for_pipe, PrincipalTable.narrow,
-            PrincipalTable.elevate, LeaseBook.grant, LeaseBook.revoke,
-            GreedyAllocator.choose, ResourceTable.declare, ResourceTable.release_all,
-            WorldStore.get, WorldStore.set, Topology.peer_of
+            MachineBackend.decode, MachineBackend.inject, MachineBackend.fork,
+            MachineBackend.splice, PipeTable.ensure, VectorTable.on_write,
+            Pager.resolve_fault, Pager.resolve_need, SpanStore.put, GateTable.for_pipe,
+            PrincipalTable.narrow, PrincipalTable.elevate, LeaseBook.grant,
+            LeaseBook.revoke, GreedyAllocator.choose, ResourceTable.declare,
+            ResourceTable.release_all, WorldStore.get, WorldStore.set, Topology.peer_of,
+            Clock.tick_tokens
     """
 
     def __init__(
