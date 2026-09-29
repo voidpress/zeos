@@ -20,9 +20,11 @@ bug class the gate exists for, which is nondeterministic iteration order leaking
 into kernel decisions.
 
 Architecture:
-    Calls: descriptor.loader.load_case, descriptor.lint.lint, Driver.run, Journal,
+    Calls: descriptor.loader.load_case, descriptor.lint.lint, driver.build_kernel,
+        Driver.boot, Driver.run, Journal.extend, Journal.to_bytes,
         debugger.server.serve, debugger.server.export,
-        debugger.payload.build_payload, demo.runner.run_demo
+        debugger.payload.build_payload, demo.runner.run_demo, demo.runner.discover,
+        Problem.load, Solution.load
 """
 
 from __future__ import annotations

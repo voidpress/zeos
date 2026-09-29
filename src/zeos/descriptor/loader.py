@@ -18,7 +18,7 @@ format. When a real model arrives the key simply goes unused, and nothing in the
 descriptor schema has to change.
 
 Architecture:
-    Calls: Descriptor, GateTable, PrincipalTable
+    Calls: Descriptor.from_frontmatter
 """
 
 from __future__ import annotations

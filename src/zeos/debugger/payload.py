@@ -40,7 +40,7 @@ That test is what makes the page's merge safe: the browser performs the same
 shallow merge, but the proof that the merge is lossless is in Python.
 
 Architecture:
-    Calls: PrincipalTable, GateTable, Monitor.snapshot
+    Calls: monitor.state.fold
 """
 
 from __future__ import annotations
